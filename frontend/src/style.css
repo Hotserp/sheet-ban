@@ -1,0 +1,18 @@
+.hu-color-picker.light {
+  width: 218px !important;
+}
+
+.abcRioButtonContents {
+  font-size: 15px !important;
+}
+
+.abcRioButtonContentWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.abcRioButton {
+  width: 150px !important;
+  box-shadow: none !important;
+}
