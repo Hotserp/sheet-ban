@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "yarn install && yarn start:backend",
-    "postinstall": "yarn build:front",
+    "postinstall": "yarn build:frontend",
     "build:frontend": "yarn --cwd ./frontend run package-install && yarn --cwd ./frontend run build",
     "start:backend": "yarn --cwd ./backend run package-install && yarn --cwd ./backend run dev"
   },
