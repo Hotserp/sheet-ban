@@ -6,7 +6,7 @@ const GoogleSheetComparator = require("../services/GoogleSheetComparator");
 
 const { getIdFromSheetUrl } = require("../utils/helpers");
 
-const compareQueue = new Queue("compare", { redis: process.env.REDIS_URL });
+const compareQueue = new Queue("compare", process.env.REDIS_URL);
 
 compareQueue.process(async (job, done) => {
   const startCompareTime = logger.info("comparePayload", job.data);
