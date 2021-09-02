@@ -2,7 +2,7 @@ module.exports = {
   type: "service_account",
   project_id: "np-bot-278613",
   private_key_id: process.env.SERVICE_PRIVATE_KEY_ID,
-  private_key: process.env.SERVICE_PRIVATE_KEY,
+  private_key: process.env.SERVICE_PRIVATE_KEY.replace(/\\n/gm, "\n"),
   client_email: "np-ttn@np-bot-278613.iam.gserviceaccount.com",
   client_id: process.env.SERVICE_CLIENT_ID,
   auth_uri: "https://accounts.google.com/o/oauth2/auth",
