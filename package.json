@@ -11,5 +11,9 @@
     "url": "git@github.com-exsanik:exsanik/sheet-ban.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@vue/cli": "^4.5.13",
+    "nodemon": "^2.0.12"
+  }
 }
