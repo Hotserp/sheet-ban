@@ -4,7 +4,7 @@
   "description": "Frontend and Backend for app that is used to highlight same values in google spreadsheets",
   "main": "index.js",
   "scripts": {
-    "start": "yarn --cwd ./frontend run build && yarn --cwd ./backend run dev"
+    "start": "yarn --cwd ./frontend run package-install && yarn --cwd ./frontend run build && yarn --cwd ./backend run package-install && yarn --cwd ./backend run dev"
   },
   "repository": {
     "type": "git",
