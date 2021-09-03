@@ -69,6 +69,7 @@ export default {
 
           formDisabled.value = false;
         } catch {
+          userEmail.value = "";
           Api.setAuthToken("", "");
         }
       }

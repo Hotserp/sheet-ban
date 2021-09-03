@@ -4,7 +4,6 @@ import App from "./App.vue";
 import router from "./router";
 
 import "./assets/tailwind.css";
-import "vue-color-kit/dist/vue-color-kit.css";
 import "mosha-vue-toastify/dist/style.css";
 import "./style.css";
 
