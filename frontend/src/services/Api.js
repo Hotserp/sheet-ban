@@ -29,17 +29,24 @@ class Api {
     );
   }
 
-  setAuthToken(token) {
+  setAuthToken(token, jwtToken) {
     this.accessToken = token;
+    this.jwtToken = jwtToken;
     this.instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    this.instance.defaults.headers.common[
+      "X-Auth-Token"
+    ] = `Bearer ${jwtToken}`;
+
     localStorage.setItem(LOCAL_STORAGE.token, token);
+    localStorage.setItem(LOCAL_STORAGE.jwtToken, jwtToken);
   }
 
   getAuthToken() {
     const token = localStorage.getItem(LOCAL_STORAGE.token);
-    this.setAuthToken(token);
+    const jwtToken = localStorage.getItem(LOCAL_STORAGE.jwtToken);
+    this.setAuthToken(token, jwtToken);
 
-    return token;
+    return { token, jwtToken };
   }
 
   async getGoogleAuthLink() {

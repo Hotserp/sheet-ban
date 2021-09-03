@@ -50,15 +50,15 @@ export default {
       const router = useRouter();
 
       if (route.query?.code) {
-        const { accessToken } = await Api.sendGoogleAuth({
+        const { accessToken, jwtToken } = await Api.sendGoogleAuth({
           code: route.query?.code,
         });
-        Api.setAuthToken(accessToken);
+        Api.setAuthToken(accessToken, jwtToken);
 
         router.replace({ query: null });
       }
 
-      const token = Api.getAuthToken();
+      const { token } = Api.getAuthToken();
       if (token) {
         try {
           const { email } = await getUserInfo(token);
@@ -69,7 +69,7 @@ export default {
 
           formDisabled.value = false;
         } catch {
-          Api.setAuthToken("");
+          Api.setAuthToken("", "");
         }
       }
     });
