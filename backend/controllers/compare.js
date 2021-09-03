@@ -33,6 +33,7 @@ const createComparePair = async (req, res) => {
       repeat: { every: Number(interval) * 60 * 1000 },
       removeOnComplete: true,
       removeOnFail: true,
+      jobId: Date.now().toString(),
     });
     res.json({ ...req.body, id });
   } catch (err) {
@@ -51,9 +52,31 @@ const getAllPairs = async (req, res) => {
     logger.error("getAllPairs");
 
     const jobs = await compareQueue.getJobs();
-    const pairs = jobs
-      .filter(({ processedOn }) => !processedOn)
-      .map(({ data, id }) => ({ id, ...data }));
+
+    console.log(JSON.stringify(jobs, null, 2));
+
+    const pairsGroups = jobs.reduce((acc, { opts, id, data }) => {
+      const jobId = opts?.repeat?.jobId;
+      if (!jobId) return acc;
+
+      if (acc[jobId]) {
+        acc[jobId].push({ id, ...data });
+      } else {
+        acc[jobId] = [{ id, ...data }];
+      }
+
+      return acc;
+    }, {});
+
+    const pairs = Object.values(pairsGroups).map((group) => {
+      const minTimestampPair = group.reduce((acc, pair) => {
+        if (acc.timestamp > pair.timestamp) return pair;
+
+        return acc;
+      }, group[0]);
+
+      return minTimestampPair;
+    });
 
     res.json({ pairs });
   } catch (err) {
