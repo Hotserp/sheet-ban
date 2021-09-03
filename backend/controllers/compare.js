@@ -56,15 +56,14 @@ const getAllPairs = async (req, res) => {
     logger.error("getAllPairs");
 
     const jobs = await compareQueue.getJobs();
+    const reps = await compareQueue.getRepeatableJobs();
 
-    const pairs = [];
-    for (const job of jobs) {
-      const { id, data } = job;
+    console.log(`jobs`, jobs.length);
+    console.log(`reps`, reps.length);
 
-      if (data.id === job?.opts?.repeat?.jobId) {
-        pairs.push({ id, ...data });
-      }
-    }
+    const pairs = jobs
+      .filter(({ processedOn }) => !processedOn)
+      .map(({ data, id }) => ({ id, ...data }));
 
     res.json({ pairs });
   } catch (err) {
