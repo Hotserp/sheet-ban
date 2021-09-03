@@ -1,6 +1,7 @@
 const { OAuth2Client } = require("google-auth-library");
 
 const logger = require("../services/Logger.js");
+const { createToken } = require("../services/JwtToken.js");
 
 const oauthClient = new OAuth2Client({
   clientId: process.env.CLIENT_ID,
@@ -13,7 +14,9 @@ const getGoogleAuthJWT = async (req, res) => {
   const { tokens } = await oauthClient.getToken(code);
   logger.info(`tokens`, tokens);
 
-  res.json({ accessToken: tokens.access_token });
+  const jwtToken = createToken();
+
+  res.json({ accessToken: tokens.access_token, jwtToken });
 };
 
 const getGoogleAuthLink = async (req, res) => {

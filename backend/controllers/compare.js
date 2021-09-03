@@ -29,11 +29,16 @@ const createComparePair = async (req, res) => {
       ).init(),
     ]);
 
-    const { id } = await compareQueue.add(req.body, {
-      repeat: { every: Number(interval) * 60 * 1000 },
-      removeOnComplete: true,
-      removeOnFail: true,
-    });
+    const id = Date.now().toString();
+    await compareQueue.add(
+      { id, ...req.body },
+      {
+        repeat: { every: Number(interval) * 60 * 1000 },
+        removeOnComplete: true,
+        removeOnFail: true,
+        jobId: id,
+      }
+    );
 
     res.json({ ...req.body, id });
   } catch (err) {
@@ -55,9 +60,8 @@ const getAllPairs = async (req, res) => {
 
     const pairs = [];
     for (const job of jobs) {
-      const isDelayed = await job.isDelayed();
-      if (isDelayed) {
-        const { id, data } = job;
+      const { id, data } = job;
+      if (data.id === id) {
         pairs.push({ id, ...data });
       }
     }
