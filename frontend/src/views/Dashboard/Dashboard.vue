@@ -3,7 +3,9 @@
     <div class="my-6">
       <p class="mb-3 ml-3">
         Предоставте доступ боту к таблицам:
-        <strong>np-bot-278613.iam.gserviceaccount.com</strong>
+        <strong>
+          black-list-bot@sodium-castle-306011.iam.gserviceaccount.com
+        </strong>
       </p>
       <DashboardForm :disabled="formDisabled" @addPair="addNewPair" />
     </div>
